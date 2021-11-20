@@ -143,8 +143,9 @@ class _LineChartState extends State<_LineChart> {
         ),
       ),
       borderData: FlBorderData(
-          show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
+        show: true,
+        border: Border.all(color: const Color(0xff37434d), width: 1),
+      ),
       minX: 0,
       maxX: 11,
       minY: 0,
@@ -268,7 +269,7 @@ class _LineChartState extends State<_LineChart> {
             FlSpot(11, 3.44),
           ],
           isCurved: true,
-          colors: [
+          colors: <Color>[
             ColorTween(begin: gradientColors[0], end: gradientColors[1])
                 .lerp(0.2)!,
             ColorTween(begin: gradientColors[0], end: gradientColors[1])
