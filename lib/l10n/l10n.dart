@@ -10,6 +10,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// An Extension on [BuildContext] so we can easily get the [AppLocalizations]
+/// instance of the context.
 extension AppLocalizationsX on BuildContext {
+  /// Returns the [AppLocalizations] instance of the context.
   AppLocalizations get l10n => AppLocalizations.of(this);
 }

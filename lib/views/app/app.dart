@@ -1,10 +1,12 @@
-import 'package:electrometer/dashboard/dashboard.dart';
 import 'package:electrometer/l10n/l10n.dart';
+import 'package:electrometer/views/dashboard/dashboard_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+/// The base Flutter Application for the project.
 class App extends StatefulWidget {
+  /// Creates a new instance of the [App] class.
   const App({Key? key}) : super(key: key);
 
   @override
@@ -12,6 +14,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  /// The [ThemeData] for the application.
   late final ThemeData _theme;
 
   @override

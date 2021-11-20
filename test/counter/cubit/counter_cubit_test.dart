@@ -6,27 +6,27 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:electrometer/dashboard/dashboard.dart';
+import 'package:electrometer/bloc/dashboard/dashboard_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('CounterCubit', () {
     test('initial state is 0', () {
-      expect(DashboardCubit().state, equals(0));
+      expect(DashboardBloc().state, equals(0));
     });
 
-    blocTest<DashboardCubit, int>(
+    blocTest<DashboardBloc, int>(
       'emits [1] when increment is called',
-      build: () => DashboardCubit(),
-      act: (cubit) => cubit.increment(),
-      expect: () => [equals(1)],
+      build: () => DashboardBloc(),
+      act: (DashboardBloc cubit) => cubit.increment(),
+      expect: () => <Matcher>[equals(1)],
     );
 
-    blocTest<DashboardCubit, int>(
+    blocTest<DashboardBloc, int>(
       'emits [-1] when decrement is called',
-      build: () => DashboardCubit(),
-      act: (cubit) => cubit.decrement(),
-      expect: () => [equals(-1)],
+      build: () => DashboardBloc(),
+      act: (DashboardBloc cubit) => cubit.decrement(),
+      expect: () => <Matcher>[equals(-1)],
     );
   });
 }

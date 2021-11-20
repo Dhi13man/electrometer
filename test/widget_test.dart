@@ -1,4 +1,4 @@
-import 'package:electrometer/app/app.dart';
+import 'package:electrometer/views/app/app.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

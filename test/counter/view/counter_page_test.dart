@@ -6,7 +6,8 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:electrometer/dashboard/dashboard.dart';
+import 'package:electrometer/bloc/dashboard/dashboard_bloc.dart';
+import 'package:electrometer/views/dashboard/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,28 +15,28 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockCounterCubit extends MockCubit<int> implements DashboardCubit {}
+class MockCounterCubit extends MockCubit<int> implements DashboardBloc {}
 
 void main() {
   group('CounterPage', () {
-    testWidgets('renders CounterView', (tester) async {
+    testWidgets('renders CounterView', (WidgetTester tester) async {
       await tester.pumpApp(const DashboardPage());
       expect(find.byType(DashboardView), findsOneWidget);
     });
   });
 
   group('CounterView', () {
-    late DashboardCubit counterCubit;
+    late DashboardBloc counterCubit;
 
     setUp(() {
       counterCubit = MockCounterCubit();
     });
 
-    testWidgets('renders current count', (tester) async {
-      const state = 42;
+    testWidgets('renders current count', (WidgetTester tester) async {
+      const int state = 42;
       when(() => counterCubit.state).thenReturn(state);
       await tester.pumpApp(
-        BlocProvider.value(
+        BlocProvider<DashboardBloc>.value(
           value: counterCubit,
           child: const DashboardView(),
         ),
@@ -44,11 +45,11 @@ void main() {
     });
 
     testWidgets('calls increment when increment button is tapped',
-        (tester) async {
+        (WidgetTester tester) async {
       when(() => counterCubit.state).thenReturn(0);
       when(() => counterCubit.increment()).thenReturn(null);
       await tester.pumpApp(
-        BlocProvider.value(
+        BlocProvider<DashboardBloc>.value(
           value: counterCubit,
           child: const DashboardView(),
         ),
@@ -58,11 +59,11 @@ void main() {
     });
 
     testWidgets('calls decrement when decrement button is tapped',
-        (tester) async {
+        (WidgetTester tester) async {
       when(() => counterCubit.state).thenReturn(0);
       when(() => counterCubit.decrement()).thenReturn(null);
       await tester.pumpApp(
-        BlocProvider.value(
+        BlocProvider<DashboardBloc>.value(
           value: counterCubit,
           child: const DashboardView(),
         ),
