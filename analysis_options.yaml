@@ -1,4 +1,4 @@
-include: package:very_good_analysis/analysis_options.2.4.0.yaml
+include: package:flutter_lints/flutter.yaml
 linter:
   rules:
    # Prefer seeing Local Variable types on both sides of declaration
