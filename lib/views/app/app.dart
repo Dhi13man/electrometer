@@ -1,4 +1,5 @@
 import 'package:electrometer/l10n/l10n.dart';
+import 'package:electrometer/views/app/elements/app_themes.dart';
 import 'package:electrometer/views/dashboard/dashboard_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,29 +21,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    _theme = ThemeData.dark().copyWith(
-      appBarTheme: const AppBarTheme(
-        titleTextStyle: TextStyle(
-          color: Colors.white,
-          fontFamily: 'Segoe UI',
-          fontWeight: FontWeight.w600,
-          fontSize: 20,
-        ),
-        color: Color(0xFF21AD9E),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10),
-          ),
-        ),
-      ),
-      backgroundColor: const Color(0xFF212121),
-      colorScheme: ColorScheme.fromSwatch(
-        primaryColorDark: const Color(0xFF21AD9E),
-        backgroundColor: const Color(0xFF212121),
-        accentColor: const Color(0xFF62EADB),
-      ),
-    );
+    _theme = AppThemes.darkTheme;
   }
 
   @override

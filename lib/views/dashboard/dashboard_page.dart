@@ -1,6 +1,6 @@
 import 'package:electrometer/bloc/dashboard/dashboard_bloc.dart';
-import 'package:electrometer/l10n/l10n.dart';
-import 'package:electrometer/views/dashboard/elements/power_chart.dart';
+import 'package:electrometer/views/dashboard/screens/dashboard_logs.dart';
+import 'package:electrometer/views/dashboard/screens/dashboard_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,42 +23,58 @@ class DashboardPage extends StatelessWidget {
 /// The view in the dashboard screen.
 ///
 /// Contains all the relevant widgets to display in the dashboard.
-class DashboardView extends StatelessWidget {
+class DashboardView extends StatefulWidget {
   /// Creates a [DashboardView] instance.
   const DashboardView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final AppLocalizations l10n = context.l10n;
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.counterAppBarTitle)),
-      body: const Center(child: DashboardPowerChart()),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            onPressed: () => context.read<DashboardBloc>().increment(),
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 8),
-          FloatingActionButton(
-            onPressed: () => context.read<DashboardBloc>().decrement(),
-            child: const Icon(Icons.remove),
-          ),
-        ],
-      ),
-    );
-  }
+  State<DashboardView> createState() => _DashboardViewState();
 }
 
-class CounterText extends StatelessWidget {
-  const CounterText({Key? key}) : super(key: key);
+class _DashboardViewState extends State<DashboardView> {
+  /// The [int] index of the screen selected using Bottom Navigation Bar.
+  late int _selectedScreenIndex;
+
+  /// The [List] of [Widget]s to be displayed in the dashboard based on
+  /// [_selectedScreenIndex].
+  final List<Widget> _screens = <Widget>[
+    const DashboardStatistics(),
+    const DashboardLogs(),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedScreenIndex = 0;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final int count = context.select((DashboardBloc cubit) => cubit.state);
-    return Text('$count', style: theme.textTheme.headline1);
+    return Scaffold(
+      appBar: AppBar(title: const Text('House 8A Electric Meter Data')),
+      body: _screens[_selectedScreenIndex],
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        child: BottomNavigationBar(
+          currentIndex: _selectedScreenIndex,
+          onTap: (int selected) =>
+              setState(() => _selectedScreenIndex = selected),
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              backgroundColor:
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+              icon: const Icon(Icons.timeline),
+              label: 'Statistics',
+            ),
+            BottomNavigationBarItem(
+              backgroundColor:
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+              icon: const Icon(Icons.history),
+              label: 'Logs',
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
