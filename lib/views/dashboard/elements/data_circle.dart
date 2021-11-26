@@ -50,10 +50,7 @@ class DataCircle extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             _subtitle,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.white,
-            ),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ],
       ),

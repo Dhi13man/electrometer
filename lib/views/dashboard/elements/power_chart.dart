@@ -35,24 +35,14 @@ class _LineChartState extends State<_LineChart> {
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1.70,
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(18),
-              ),
-              color: Color(0xff232d37),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              right: 18,
+              left: 12,
+              top: 24,
+              bottom: 12,
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                right: 18,
-                left: 12,
-                top: 24,
-                bottom: 12,
-              ),
-              child: LineChart(
-                showAvg ? avgData() : mainData(),
-              ),
-            ),
+            child: LineChart(showAvg ? avgData() : mainData()),
           ),
         ),
         SizedBox(
