@@ -13,7 +13,7 @@ class SensorDataUninitializedState extends SensorDataState {
 }
 
 class SensorDataLoadingState extends SensorDataState {
-  const SensorDataLoadingState({this.isLoading=true});
+  const SensorDataLoadingState({this.isLoading = true});
   final bool isLoading;
 
   @override
@@ -26,4 +26,15 @@ class SensorDataLoadedState extends SensorDataState {
 
   @override
   List<Object> get props => <Object>[sensorData];
+}
+
+class SensorDataErrorState extends SensorDataState {
+  const SensorDataErrorState({required this.error, this.stackTrace});
+
+  final dynamic error;
+
+  final StackTrace? stackTrace;
+
+  @override
+  List<Object> get props => <Object>[error, stackTrace ?? ''];
 }

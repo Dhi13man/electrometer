@@ -14,7 +14,8 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SensorDataBloc>(
-      create: (_) => SensorDataBloc(),
+      create: (_) => SensorDataBloc()
+        ..add(const SensorDataFetchEvent(sensorID: 'QB5ckYt0CS7Yc7swMKPu')),
       child: const DashboardView(),
     );
   }

@@ -1,5 +1,5 @@
+import 'package:electrometer/bloc/sensor_data/sensor_data_bloc.dart';
 import 'package:electrometer/models/sensor_data_models/sensor_data.dart';
-import 'package:electrometer/repositories/sensor_data.dart';
 import 'package:electrometer/views/dashboard/elements/data_circle.dart';
 import 'package:electrometer/views/dashboard/elements/data_rrect_card.dart';
 import 'package:electrometer/views/dashboard/elements/power_chart.dart';
@@ -10,31 +10,35 @@ class DashboardStatistics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        const DashboardPowerChart(),
-        const DataRRectCard(title: '7.5673 KWH', subtitle: 'Power'),
-        StreamBuilder<SensorDataModel>(
-            stream: SensorDataRepository()
-                .watchSensorData(deviceID: 'QB5ckYt0CS7Yc7swMKPu'),
-            builder: (BuildContext context,
-                AsyncSnapshot<SensorDataModel> snapshot) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  DataCircle(
-                    title: '${snapshot.data?.latestCurrent}A',
-                    subtitle: 'Current',
-                  ),
-                  DataCircle(
-                    title: '${snapshot.data?.latestVoltage}V',
-                    subtitle: 'Voltage',
-                  ),
-                ],
-              );
-            }),
-      ],
-    );
+    final SensorDataBloc bloc = context.watch<SensorDataBloc>();
+    if (bloc.state is! SensorDataLoadedState) {
+      return Container();
+    } else {
+      final SensorDataLoadedState state = bloc.state as SensorDataLoadedState;
+      final SensorDataModel sensorData = state.sensorData;
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          const DashboardPowerChart(),
+          DataRRectCard(
+            title: '${sensorData.aggregatePower} KWH',
+            subtitle: 'Power',
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              DataCircle(
+                title: '${sensorData.latestCurrent}A',
+                subtitle: 'Current',
+              ),
+              DataCircle(
+                title: '${sensorData.latestVoltage}V',
+                subtitle: 'Voltage',
+              ),
+            ],
+          ),
+        ],
+      );
+    }
   }
 }
