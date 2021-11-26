@@ -3,7 +3,8 @@ import 'package:electrometer/repositories/base_firestore.dart';
 
 /// Repository for easily accessing the Sensor data from Firestore.
 class SensorDataRepository extends BaseFirestoreDataRepositoy {
-  SensorDataRepository() : super('sensor_data');
+  SensorDataRepository({String collectionName = 'sensor_data'})
+      : super(collectionName);
 
   /// Get the entire sensor data model for a [deviceID] from Firestore.
   ///

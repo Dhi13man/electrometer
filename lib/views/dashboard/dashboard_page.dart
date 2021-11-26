@@ -1,4 +1,4 @@
-import 'package:electrometer/bloc/dashboard/dashboard_bloc.dart';
+import 'package:electrometer/bloc/sensor_data/sensor_data_bloc.dart';
 import 'package:electrometer/views/dashboard/screens/dashboard_logs.dart';
 import 'package:electrometer/views/dashboard/screens/dashboard_statistics.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// The dashboard screen.
 ///
-/// Uses application's [DashboardBloc] to manage the state of the screen.
+/// Uses application's [SensorDataBloc] to manage the state of the screen.
 class DashboardPage extends StatelessWidget {
   /// Creates a [DashboardPage] instance.
   const DashboardPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<DashboardBloc>(
-      create: (_) => DashboardBloc(),
+    return BlocProvider<SensorDataBloc>(
+      create: (_) => SensorDataBloc(),
       child: const DashboardView(),
     );
   }

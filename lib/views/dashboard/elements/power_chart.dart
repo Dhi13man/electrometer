@@ -1,4 +1,4 @@
-import 'package:electrometer/bloc/dashboard/dashboard_bloc.dart';
+import 'package:electrometer/bloc/sensor_data/sensor_data_bloc.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +9,7 @@ class DashboardPowerChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DashboardBloc dashboardBloc = context.watch<DashboardBloc>();
+    final SensorDataBloc sensorDataBloc = context.watch<SensorDataBloc>();
     return const _LineChart();
   }
 }
