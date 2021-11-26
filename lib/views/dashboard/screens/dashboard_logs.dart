@@ -1,6 +1,6 @@
 import 'package:electrometer/views/dashboard/elements/data_circle.dart';
 import 'package:electrometer/views/dashboard/elements/data_rrect_card.dart';
-import 'package:electrometer/views/dashboard/elements/power_chart.dart';
+import 'package:electrometer/views/dashboard/elements/line_chart.dart';
 import 'package:flutter/material.dart';
 
 class DashboardLogs extends StatelessWidget {

@@ -15,6 +15,7 @@ class SensorDataBloc extends Bloc<SensorDataEvent, SensorDataState> {
         super(const SensorDataUninitializedState()) {
     on<SensorDataFetchEvent>(
       (SensorDataFetchEvent event, Emitter<SensorDataState> emit) async {
+        emit(const SensorDataLoadingState());
         await emit.onEach<SensorDataModel>(
           _repository.watchSensorData(deviceID: event.sensorID),
           onData: (SensorDataModel data) =>
@@ -23,7 +24,6 @@ class SensorDataBloc extends Bloc<SensorDataEvent, SensorDataState> {
             SensorDataErrorState(error: error, stackTrace: stackTrace),
           ),
         );
-        emit(const SensorDataLoadingState());
       },
     );
   }
