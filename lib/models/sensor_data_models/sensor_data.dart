@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -33,12 +34,9 @@ class SensorDataModel extends Equatable {
   /// The [double] aggregate power recorded so far.
   final double aggregatePower;
 
-  /// A [Map] of [SensorDataEntry] objects which represents the history of the
+  /// A [List] of [SensorDataEntry] objects which represents the history of the
   /// sensor data recorded over time.
-  ///
-  /// The keys of the [Map] are the [String] ISO8601 Timestamps of the recording
-  /// and the values are the [SensorDataEntry] objects having the recorded values.
-  final Map<String, SensorDataEntry> history;
+  final List<SensorDataEntry> history;
 
   /// The [double] last recorded current by this particular sensor.
   final double latestCurrent;
@@ -67,10 +65,12 @@ class SensorDataEntry extends Equatable {
   ///
   /// - [power]: The power recorded at the time of the entry.
   /// - [voltage]: The voltage recorded at the time of the entry.
+  /// - [timestamp]: The ISO8601 String timestamp of when entry taken by device.
   /// - [current]: The current recorded at the time of the entry.
   const SensorDataEntry({
     required this.current,
     required this.power,
+    required this.timestamp,
     required this.voltage,
   });
 
@@ -85,11 +85,15 @@ class SensorDataEntry extends Equatable {
   /// The [double] power recorded by the sensor.
   final double power;
 
+  /// The ISO8601 [String] timestamp when the reading was taken.
+  final String timestamp;
+
   /// The [double] voltage recorded by the sensor.
   final double voltage;
 
   @override
-  List<Object> get props => <Object>[current, power, voltage];
+  List<Object> get props =>
+      <Object>[current, power, timestamp, voltage];
 
   /// Connect the generated [_$SensorDataEntryToJson] function to the `toJson`
   ///  method.

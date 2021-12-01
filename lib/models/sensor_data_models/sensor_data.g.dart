@@ -10,10 +10,9 @@ SensorDataModel _$SensorDataModelFromJson(Map<String, dynamic> json) =>
     SensorDataModel(
       aggregatePower: (json['aggregatePower'] as num).toDouble(),
       deviceID: json['deviceID'] as String,
-      history: (json['history'] as Map<String, dynamic>).map(
-        (k, e) =>
-            MapEntry(k, SensorDataEntry.fromJson(e as Map<String, dynamic>)),
-      ),
+      history: (json['history'] as List<dynamic>)
+          .map((e) => SensorDataEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
       latestCurrent: (json['latestCurrent'] as num).toDouble(),
       latestVoltage: (json['latestVoltage'] as num).toDouble(),
     );
@@ -31,6 +30,7 @@ SensorDataEntry _$SensorDataEntryFromJson(Map<String, dynamic> json) =>
     SensorDataEntry(
       current: (json['current'] as num).toDouble(),
       power: (json['power'] as num).toDouble(),
+      timestamp: json['timestamp'] as String,
       voltage: (json['voltage'] as num).toDouble(),
     );
 
@@ -38,5 +38,6 @@ Map<String, dynamic> _$SensorDataEntryToJson(SensorDataEntry instance) =>
     <String, dynamic>{
       'current': instance.current,
       'power': instance.power,
+      'timestamp': instance.timestamp,
       'voltage': instance.voltage,
     };

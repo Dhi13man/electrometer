@@ -11,9 +11,7 @@ class DashboardStatistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SensorDataBloc bloc = context.watch<SensorDataBloc>();
-    if (bloc.state is! SensorDataLoadedState) {
-      return const Center(child: CircularProgressIndicator());
-    } else {
+    if (bloc.state is SensorDataLoadedState) {
       final SensorDataLoadedState state = bloc.state as SensorDataLoadedState;
       final SensorDataModel sensorData = state.sensorData;
       return Column(
@@ -39,6 +37,10 @@ class DashboardStatistics extends StatelessWidget {
           ),
         ],
       );
+    } else if (bloc.state is SensorDataErrorState) {
+      return const Center(child: Text('Error'));
+    } else {
+      return const Center(child: CircularProgressIndicator());
     }
   }
 }

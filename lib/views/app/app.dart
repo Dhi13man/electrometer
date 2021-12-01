@@ -1,6 +1,6 @@
 import 'package:electrometer/l10n/l10n.dart';
 import 'package:electrometer/views/app/elements/app_themes.dart';
-import 'package:electrometer/views/dashboard/dashboard_page.dart';
+import 'package:electrometer/views/dashboard/dashboard_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,7 @@ class _AppState extends State<App> {
               GlobalMaterialLocalizations.delegate,
             ],
             supportedLocales: AppLocalizations.supportedLocales,
-            home: const DashboardPage(),
+            home: const DashboardScreen(),
           );
         }
       },

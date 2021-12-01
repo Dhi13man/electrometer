@@ -16,8 +16,7 @@ class DashboardPowerChart extends StatelessWidget {
         context.watch<SensorDataBloc>().state;
     // Build the chart if the data is available.
     if (sensorDataState is SensorDataLoadedState) {
-      final Map<String, SensorDataEntry> history =
-          sensorDataState.sensorData.history;
+      final List<SensorDataEntry> history = sensorDataState.sensorData.history;
       // Prepare Data for chart
       final Map<String, List<FlSpot>> data = <String, List<FlSpot>>{
         'current': <FlSpot>[],
@@ -25,17 +24,16 @@ class DashboardPowerChart extends StatelessWidget {
         'voltage': <FlSpot>[],
       };
       double x = 0;
-      history.forEach(
-        (String timestamp, SensorDataEntry dataEntry) {
-          final double time = (DateTime.tryParse(timestamp) ?? DateTime.now())
-              .millisecondsSinceEpoch
-              .toDouble();
-          data['current']!.add(FlSpot(x, dataEntry.current));
-          data['power']!.add(FlSpot(x, dataEntry.power));
-          data['voltage']!.add(FlSpot(x, dataEntry.voltage));
-          x += 1;
-        },
-      );
+      for (final SensorDataEntry dataEntry in history) {
+        final double time =
+            (DateTime.tryParse(dataEntry.timestamp) ?? DateTime.now())
+                .millisecondsSinceEpoch
+                .toDouble();
+        data['current']!.add(FlSpot(x, dataEntry.current));
+        data['power']!.add(FlSpot(x, dataEntry.power));
+        data['voltage']!.add(FlSpot(x, dataEntry.voltage));
+        x += 1;
+      }
       return _LineChart(chartData: data);
     } else if (sensorDataState is SensorDataErrorState) {
       return const Center(child: Text('Error loading data'));
@@ -129,6 +127,7 @@ class _LineChartState extends State<_LineChart> {
       }
     }
 
+    final ThemeData theme = Theme.of(context);
     return Stack(
       children: <Widget>[
         AspectRatio(
@@ -159,8 +158,8 @@ class _LineChartState extends State<_LineChart> {
                   topTitles: SideTitles(showTitles: false),
                   bottomTitles: SideTitles(
                     getTextStyles: (BuildContext context, double value) =>
-                        const TextStyle(
-                      color: Color(0xff68737d),
+                        TextStyle(
+                      color: theme.colorScheme.primary,
                       fontWeight: FontWeight.bold,
                       fontSize: 11,
                     ),
@@ -172,8 +171,8 @@ class _LineChartState extends State<_LineChart> {
                   ),
                   leftTitles: SideTitles(
                     getTextStyles: (BuildContext context, double value) =>
-                        const TextStyle(
-                      color: Color(0xff67727d),
+                        TextStyle(
+                      color: theme.colorScheme.primary,
                       fontWeight: FontWeight.bold,
                       fontSize: 10,
                     ),
@@ -185,7 +184,10 @@ class _LineChartState extends State<_LineChart> {
                 ),
                 borderData: FlBorderData(
                   show: true,
-                  border: Border.all(color: const Color(0xff37434d), width: 1),
+                  border: Border.all(
+                    color: theme.colorScheme.background,
+                    width: 1,
+                  ),
                 ),
                 minX: minX,
                 maxX: maxX,
@@ -214,8 +216,7 @@ class _LineChartState extends State<_LineChart> {
           ),
         ),
         SizedBox(
-          width: 60,
-          height: 34,
+          height: 30,
           child: TextButton(
             onPressed: () => setState(
               () => _showingDataIndex = (_showingDataIndex + 1) %
@@ -223,7 +224,11 @@ class _LineChartState extends State<_LineChart> {
             ),
             child: Text(
               _showingData,
-              style: const TextStyle(fontSize: 10, color: Colors.white),
+              style: TextStyle(
+                color: theme.colorScheme.secondary,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

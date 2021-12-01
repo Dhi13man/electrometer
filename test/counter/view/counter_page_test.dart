@@ -7,7 +7,7 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:electrometer/bloc/sensor_data/sensor_data_bloc.dart';
-import 'package:electrometer/views/dashboard/dashboard_page.dart';
+import 'package:electrometer/views/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,7 +21,7 @@ class MockCounterCubit extends MockCubit<SensorDataState>
 void main() {
   group('CounterPage', () {
     testWidgets('renders CounterView', (WidgetTester tester) async {
-      await tester.pumpApp(const DashboardPage());
+      await tester.pumpApp(const DashboardScreen());
       expect(find.byType(DashboardView), findsOneWidget);
     });
   });
