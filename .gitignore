@@ -129,3 +129,4 @@ app.*.map.json
 !.idea/runConfigurations/
 
 web/firebase-cred.js
+firebase/public/firebase-cred.js
