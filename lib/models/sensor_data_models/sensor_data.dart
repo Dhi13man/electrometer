@@ -92,8 +92,7 @@ class SensorDataEntry extends Equatable {
   final double voltage;
 
   @override
-  List<Object> get props =>
-      <Object>[current, power, timestamp, voltage];
+  List<Object> get props => <Object>[current, power, timestamp, voltage];
 
   /// Connect the generated [_$SensorDataEntryToJson] function to the `toJson`
   ///  method.

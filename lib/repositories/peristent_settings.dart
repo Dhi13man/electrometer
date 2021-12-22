@@ -1,3 +1,1 @@
-class PersistentSettingsRepository {
-  
-}
+class PersistentSettingsRepository {}
