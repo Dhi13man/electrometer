@@ -23,11 +23,12 @@ class DashboardLogs extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primaryVariant,
                   child: ListTile(
                     title: Text(
-                      '${entry.power} KWH consumed at $timeString',
+                      '${entry.power.toStringAsFixed(6)} KWH consumed at $timeString',
                       textScaleFactor: 0.9,
                     ),
                     subtitle: Text('${entry.current} A, ${entry.voltage} V'),
-                    leading: Icon(Icons.power, color: Colors.red, size: 30),
+                    leading:
+                        const Icon(Icons.power, color: Colors.red, size: 30),
                     minLeadingWidth: 10,
                   ),
                 );

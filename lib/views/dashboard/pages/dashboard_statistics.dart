@@ -19,18 +19,18 @@ class DashboardStatistics extends StatelessWidget {
         children: <Widget>[
           const DashboardPowerChart(),
           DataRRectCard(
-            title: '${sensorData.aggregatePower} KWH',
+            title: '${sensorData.aggregatePower.toStringAsFixed(6)} KWH',
             subtitle: 'Power',
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               DataCircle(
-                title: '${sensorData.latestCurrent} A',
+                title: '${sensorData.latestCurrent.toStringAsFixed(3)} A',
                 subtitle: 'Current',
               ),
               DataCircle(
-                title: '${sensorData.latestVoltage} V',
+                title: '${sensorData.latestVoltage.toStringAsFixed(1)} V',
                 subtitle: 'Voltage',
               ),
             ],
