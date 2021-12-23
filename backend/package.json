@@ -1,0 +1,23 @@
+{
+    "name": "electrometer-backend",
+    "version": "1.0.0",
+    "description": "Backend for electrometer.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "exit 0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Dhi13man/electrometer-backend.git"
+    },
+    "author": "dhi13man",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Dhi13man/electrometer-backend/issues"
+    },
+    "homepage": "https://github.com/Dhi13man/electrometer-backend#readme",
+    "dependencies": {
+        "firebase-admin": "^10.0.1"
+    }
+}
