@@ -1,20 +1,22 @@
-const firestore = require("./database");
+import firestore from "./database";
 
 const db = firestore();
 const sensor_data_collection = db.collection("sensor_data");
 
-module.exports = async(query) => {
+const sendData = async (query: Record<string, unknown>) => {
     console.log(query);
-    const deviceID = query.deviceID;
-    const current = parseFloat(query.current);
-    const voltage = parseFloat(query.voltage);
+    const deviceID = query.deviceID as string;
+    const current = parseFloat(query.current as string);
+    const voltage = parseFloat(query.voltage as string);
     try {
         await firebaseDataSend(deviceID, current, voltage);
         return { statusCode: 200, body: "Data sent to Firestore!" }
-    } catch (error) {
+    } catch (error: any) {
         return { statusCode: 500, body: error.message };
     }
 };
+
+export default sendData;
 
 
 /**
@@ -25,10 +27,10 @@ module.exports = async(query) => {
  * @returns {Promise<firestore.WriteResult>} Promise that resolves when data is 
  * either sent to Firestore or fails to send.
  */
-const firebaseDataSend = async(
-    deviceID,
-    current,
-    voltage,
+const firebaseDataSend = async (
+    deviceID: string,
+    current: number,
+    voltage: number,
 ) => {
     const entry = sensor_data_collection.doc(deviceID);
     const power = calculatePower(current, voltage);
@@ -47,13 +49,13 @@ const firebaseDataSend = async(
         });
     } else {
         // Add the new data to the history array
-        const history = doc.data().history;
+        const history = doc.data()!.history;
         history.push({ current, voltage, timestamp: currentTimestamp, power: power });
         // Update the document with the new data
         return entry.update({
             latestCurrent: current,
             latestVoltage: voltage,
-            aggregatePower: power + doc.data().aggregatePower,
+            aggregatePower: power + doc.data()!.aggregatePower,
             history,
         });
     }
@@ -65,5 +67,5 @@ const firebaseDataSend = async(
  * @param {number} voltage Average Voltage in Volts
  * @returns {number} Power in KWh for this 5 second window.
  */
-const calculatePower = (current, voltage) =>
+const calculatePower = (current: number, voltage: number): number =>
     (current * voltage) * (5 / 3600) / 1000;
