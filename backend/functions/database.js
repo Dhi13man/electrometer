@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-var serviceAccount = process.env.firebase ? JSON.parse(process.env.firebase) : require('./firebase-service.json');
+var serviceAccount = JSON.parse(process.env.firebase);
 
 if (!admin.apps.length) {
     try {
