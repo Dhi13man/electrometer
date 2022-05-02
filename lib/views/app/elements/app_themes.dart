@@ -17,6 +17,39 @@ class AppThemes {
             ),
           ),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) =>
+                  states.contains(MaterialState.hovered) ||
+                          states.contains(MaterialState.pressed)
+                      ? const Color(0xFF212121)
+                      : const Color(0xFF303030),
+            ),
+            elevation: MaterialStateProperty.resolveWith(
+              (Set<MaterialState> states) =>
+                  states.contains(MaterialState.hovered) ||
+                          states.contains(MaterialState.pressed)
+                      ? 10
+                      : 5,
+            ),
+            shape: MaterialStateProperty.all<OutlinedBorder>(
+              const RoundedRectangleBorder(
+                side: BorderSide(color: Color(0xFF21AD9E), width: 1),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+            ),
+            shadowColor:
+                MaterialStateProperty.all<Color>(const Color(0xFF62EADB)),
+            textStyle: MaterialStateProperty.all<TextStyle>(
+              const TextStyle(
+                color: Color(0xFF21AD9E),
+                fontFamily: 'Segoe UI',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
         backgroundColor: const Color(0xFF1B1B1B),
         colorScheme: ColorScheme.fromSwatch(
           accentColor: const Color(0xFF62EADB),

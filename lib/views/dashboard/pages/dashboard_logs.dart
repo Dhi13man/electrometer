@@ -9,9 +9,11 @@ class DashboardLogs extends StatelessWidget {
   Widget build(BuildContext context) {
     final SensorDataState state = context.watch<SensorDataBloc>().state;
     if (state is SensorDataLoadedState) {
-      return Column(
+      return Stack(
+        alignment: Alignment.center,
         children: <Widget>[
-          Expanded(
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: ListView.builder(
               itemCount: state.sensorData.history.length,
               itemBuilder: (BuildContext context, int index) {
@@ -35,12 +37,16 @@ class DashboardLogs extends StatelessWidget {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          Positioned(
+            bottom: 5,
             child: ElevatedButton.icon(
               onPressed: () {},
-              icon: Icon(Icons.settings_applications),
-              label: Text('Set Threshold'),
+              icon:
+                  const Icon(Icons.settings_applications, color: Colors.white),
+              label: const Text(
+                'Set Threshold',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           )
         ],
