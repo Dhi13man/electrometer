@@ -22,13 +22,13 @@ class DataCircle extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
-          color: theme.colorScheme.primaryVariant,
+          color: theme.colorScheme.primary,
           width: 0.5,
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             offset: const Offset(0, 2),
-            color: theme.colorScheme.primaryVariant,
+            color: theme.colorScheme.primary,
             blurRadius: 4,
           ),
         ],

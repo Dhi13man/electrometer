@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -90,6 +89,20 @@ class SensorDataEntry extends Equatable {
 
   /// The [double] voltage recorded by the sensor.
   final double voltage;
+
+  /// Extract date time string from the timestamp of the sensor data
+  ///
+  /// Converts it to a string as DD-MM-YY hh:mm.
+  String get dateTimeString {
+    final DateTime dt = (DateTime.tryParse(timestamp) ?? DateTime.now());
+    final String day = dt.day < 10 ? '0${dt.day}' : dt.day.toString();
+    final String month = dt.month < 10 ? '0${dt.month}' : dt.month.toString();
+    final String year = dt.year.toString().substring(2);
+    final String hour = dt.hour < 10 ? '0${dt.hour}' : dt.hour.toString();
+    final String minute =
+        dt.minute < 10 ? '0${dt.minute}' : dt.minute.toString();
+    return '$day-$month-$year $hour:$minute';
+  }
 
   @override
   List<Object> get props => <Object>[current, power, timestamp, voltage];

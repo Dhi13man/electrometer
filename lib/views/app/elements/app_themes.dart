@@ -51,12 +51,12 @@ class AppThemes {
           ),
         ),
         backgroundColor: const Color(0xFF1B1B1B),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF62EADB),
-          backgroundColor: const Color(0xFF212121),
-          cardColor: const Color(0xFF21AD9E),
-          primaryColorDark: const Color(0xFF21AD9E),
-          primarySwatch: Colors.grey,
+        colorScheme: const ColorScheme.dark(
+          shadow: Color(0xFF62EADB),
+          outline: Color.fromARGB(255, 174, 234, 227),
+          secondary: Color.fromARGB(255, 227, 221, 221),
+          secondaryContainer: Color(0xFF21AD9E),
+          primary: Color(0xFF21AD9E),
         ),
         scaffoldBackgroundColor: const Color(0xFF212121),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(

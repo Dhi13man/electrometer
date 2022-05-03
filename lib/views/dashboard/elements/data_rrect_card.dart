@@ -21,19 +21,19 @@ class DataRRectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Card(
-      color: theme.colorScheme.primaryVariant,
+      color: theme.colorScheme.primaryContainer,
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
         child: Column(
           children: <Widget>[
             Text(
               _title,
               style: const TextStyle(
                 fontFamily: 'Segoe UI',
-                fontSize: 40,
+                fontSize: 30,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -43,7 +43,7 @@ class DataRRectCard extends StatelessWidget {
               style: TextStyle(
                 color: theme.colorScheme.secondary,
                 fontFamily: 'Segoe UI',
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),

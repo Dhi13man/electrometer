@@ -22,7 +22,7 @@ class DashboardLogs extends StatelessWidget {
                     DateTime.tryParse(entry.timestamp) ?? DateTime.now();
                 final String timeString = time.toString().split('.').first;
                 return Card(
-                  color: Theme.of(context).colorScheme.primaryVariant,
+                  color: Theme.of(context).colorScheme.primary,
                   child: ListTile(
                     title: Text(
                       '${entry.power.toStringAsFixed(6)} KWH consumed at $timeString',

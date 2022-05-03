@@ -2,7 +2,6 @@ import 'package:electrometer/bloc/sensor_data/sensor_data_bloc.dart';
 import 'package:electrometer/views/dashboard/pages/dashboard_logs.dart';
 import 'package:electrometer/views/dashboard/pages/dashboard_statistics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// The dashboard screen.
 ///
