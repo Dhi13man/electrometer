@@ -10,9 +10,10 @@ SensorDataModel _$SensorDataModelFromJson(Map<String, dynamic> json) =>
     SensorDataModel(
       aggregatePower: (json['aggregatePower'] as num).toDouble(),
       deviceID: json['deviceID'] as String,
-      history: (json['history'] as List<dynamic>).map(
-            (dynamic e) => SensorDataEntry.fromJson(e as Map<String, dynamic>)
-          ).toList(),
+      history: (json['history'] as List<dynamic>)
+          .map((dynamic e) =>
+              SensorDataEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
       latestCurrent: (json['latestCurrent'] as num).toDouble(),
       latestVoltage: (json['latestVoltage'] as num).toDouble(),
     );
