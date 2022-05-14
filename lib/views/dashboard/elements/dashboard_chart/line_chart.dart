@@ -1,58 +1,10 @@
 import 'dart:math' show min, max;
 
-import 'package:electrometer/bloc/sensor_data/sensor_data_bloc.dart';
-import 'package:electrometer/models/sensor_data_models/sensor_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-/// Shows a chart for the real time power usage readings as a line chart.
-class DashboardPowerChart extends StatelessWidget {
-  /// Creates a new instance of the [DashboardPowerChart] class.
-  const DashboardPowerChart({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final SensorDataState sensorDataState =
-        context.watch<SensorDataBloc>().state;
-    // Build the chart if the data is available.
-    if (sensorDataState is SensorDataErrorState) {
-      return const Center(child: Text('Error loading data'));
-    } else if (sensorDataState is SensorDataLoadedState) {
-      final List<String> timestamps = sensorDataState.sensorData.history
-          .map<String>((SensorDataEntry e) => e.dateTimeString)
-          .toList();
-      return _LineChart(
-        chartData: _makeChartDataMap(sensorDataState.sensorData.history),
-        xLabels: timestamps,
-      );
-    } else {
-      return const Center(child: CircularProgressIndicator());
-    }
-  }
-
-  /// Return a map with the keys as the type of values to show in Line chart
-  /// and values as the [List] of [FlSpot]s that the chart needs to show.
-  Map<String, List<FlSpot>> _makeChartDataMap(List<SensorDataEntry> history) {
-    // Prepare Data for chart
-    final Map<String, List<FlSpot>> data = <String, List<FlSpot>>{
-      'current': <FlSpot>[],
-      'power': <FlSpot>[],
-      'voltage': <FlSpot>[],
-    };
-
-    double x = 0;
-    for (final SensorDataEntry dataEntry in history) {
-      data['current']!.add(FlSpot(x, dataEntry.current));
-      data['power']!.add(FlSpot(x, dataEntry.power));
-      data['voltage']!.add(FlSpot(x, dataEntry.voltage));
-      x += 1;
-    }
-    return data;
-  }
-}
-
-class _LineChart extends StatefulWidget {
-  const _LineChart({
+class LineChartImplementation extends StatefulWidget {
+  const LineChartImplementation({
     required Map<String, List<FlSpot>> chartData,
     List<dynamic>? xLabels,
     this.minX = 0,
@@ -93,10 +45,11 @@ class _LineChart extends StatefulWidget {
   final double? maxY;
 
   @override
-  _LineChartState createState() => _LineChartState();
+  _LineChartImplementationState createState() =>
+      _LineChartImplementationState();
 }
 
-class _LineChartState extends State<_LineChart> {
+class _LineChartImplementationState extends State<LineChartImplementation> {
   late int _showingDataIndex;
 
   String get _showingData =>
@@ -144,10 +97,11 @@ class _LineChartState extends State<_LineChart> {
     ];
     return Stack(
       children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1.70,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 25),
+          child: AspectRatio(
+            aspectRatio: 2,
             child: LineChart(
               LineChartData(
                 gridData: FlGridData(
@@ -169,9 +123,13 @@ class _LineChartState extends State<_LineChart> {
                       fontWeight: FontWeight.bold,
                       fontSize: 8,
                     ),
-                    getTitles: (double x) => x >= (widget._xLabels?.length ?? 0)
-                        ? x.floor().toString()
-                        : widget._xLabels![x.floor()].toString(),
+                    getTitles: (double x) {
+                      final int xLabelLength = widget._xLabels?.length ?? 0;
+                      final int index = x.floor();
+                      return (index >= xLabelLength)
+                          ? index.toString()
+                          : widget._xLabels![index].toString();
+                    },
                     margin: 12,
                     rotateAngle: 90,
                     reservedSize: 22,

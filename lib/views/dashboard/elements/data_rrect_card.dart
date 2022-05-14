@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 /// For Dashboard screen.
 class DataRRectCard extends StatelessWidget {
   /// Creates a [DataRRectCard] with a title and a subtitle.
-  const DataRRectCard(
-      {required String title, required String subtitle, Key? key})
-      : _title = title,
+  const DataRRectCard({
+    required String title,
+    required String subtitle,
+    Key? key,
+  })  : _title = title,
         _subtitle = subtitle,
         super(key: key);
 
@@ -22,11 +24,9 @@ class DataRRectCard extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Card(
       color: theme.colorScheme.primaryContainer,
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 85),
         child: Column(
           children: <Widget>[
             Text(

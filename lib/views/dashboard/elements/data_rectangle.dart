@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 /// Shows a DataCircle with a title and a subtitle.
 ///
 /// For Dashboard screen.
-class DataCircle extends StatelessWidget {
-  /// Creates a [DataCircle] with a title and a subtitle.
-  const DataCircle({required String title, required String subtitle, Key? key})
-      : _title = title,
+class DataRectangle extends StatelessWidget {
+  /// Creates a [DataRectangle] with a title and a subtitle.
+  const DataRectangle({
+    required String title,
+    required String subtitle,
+    Key? key,
+  })  : _title = title,
         _subtitle = subtitle,
         super(key: key);
 
@@ -32,10 +35,9 @@ class DataCircle extends StatelessWidget {
             blurRadius: 4,
           ),
         ],
-        color: theme.backgroundColor,
-        shape: BoxShape.circle,
+        color: theme.cardTheme.color,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 45, horizontal: 25),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 50),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

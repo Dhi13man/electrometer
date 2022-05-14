@@ -1,9 +1,39 @@
 import 'package:electrometer/bloc/sensor_data/sensor_data_bloc.dart';
 import 'package:electrometer/models/sensor_data_models/sensor_data.dart';
+import 'package:electrometer/repositories/peristent_settings.dart';
+import 'package:electrometer/views/dashboard/elements/set_threshold_alert.dart';
 import 'package:flutter/material.dart';
 
-class DashboardLogs extends StatelessWidget {
+class DashboardLogs extends StatefulWidget {
   const DashboardLogs({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardLogs> createState() => _DashboardLogsState();
+}
+
+class _DashboardLogsState extends State<DashboardLogs> {
+  /// Repository to read and write storage across local storage.
+  late final PersistentSettingsRepository persistentRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    persistentRepository = PersistentSettingsRepository();
+    persistentRepository.addListener(() => setState(() {}));
+  }
+
+  Color _logColor(SensorDataEntry entry) {
+    final double currentThreshold =
+        persistentRepository.currentThresholdSetting ?? 0.0;
+    final double powerThreshold =
+        persistentRepository.powerThresholdSetting ?? 0.0;
+    final double voltageThreshold =
+        persistentRepository.voltageThresholdSetting ?? 0.0;
+    final bool noThresholdExceeded = currentThreshold > entry.current &&
+        powerThreshold > entry.power &&
+        voltageThreshold > entry.voltage;
+    return noThresholdExceeded ? Colors.green : Colors.red;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +52,6 @@ class DashboardLogs extends StatelessWidget {
                     DateTime.tryParse(entry.timestamp) ?? DateTime.now();
                 final String timeString = time.toString().split('.').first;
                 return Card(
-                  color: Theme.of(context).colorScheme.primary,
                   child: ListTile(
                     title: Text(
                       '${entry.power.toStringAsFixed(6)} KWH consumed at $timeString',
@@ -30,7 +59,7 @@ class DashboardLogs extends StatelessWidget {
                     ),
                     subtitle: Text('${entry.current} A, ${entry.voltage} V'),
                     leading:
-                        const Icon(Icons.power, color: Colors.red, size: 30),
+                        Icon(Icons.power, color: _logColor(entry), size: 30),
                     minLeadingWidth: 10,
                   ),
                 );
@@ -40,7 +69,12 @@ class DashboardLogs extends StatelessWidget {
           Positioned(
             bottom: 5,
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () => showDialog(
+                context: context,
+                builder: (BuildContext context) => SetThresholdsAlert(
+                  persistentRepository: persistentRepository,
+                ),
+              ),
               icon:
                   const Icon(Icons.settings_applications, color: Colors.white),
               label: const Text(
@@ -54,5 +88,11 @@ class DashboardLogs extends StatelessWidget {
     } else {
       return const Center(child: CircularProgressIndicator());
     }
+  }
+
+  @override
+  void dispose() {
+    persistentRepository.dispose();
+    super.dispose();
   }
 }

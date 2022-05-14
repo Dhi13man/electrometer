@@ -31,7 +31,7 @@ class _AppState extends State<App> {
     );
     Firebase.initializeApp();
     super.initState();
-    _theme = AppThemes.darkTheme;
+    _theme = AppThemes.lightTheme;
   }
 
   @override
@@ -45,7 +45,7 @@ class _AppState extends State<App> {
           return const Center(child: Text('Error'));
         } else {
           return MaterialApp(
-            theme: _theme,
+            theme: AppThemes.darkTheme,
             localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
