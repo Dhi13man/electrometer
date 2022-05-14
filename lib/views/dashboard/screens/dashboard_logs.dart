@@ -57,7 +57,9 @@ class _DashboardLogsState extends State<DashboardLogs> {
                       '${entry.power.toStringAsFixed(6)} KWH consumed at $timeString',
                       textScaleFactor: 0.9,
                     ),
-                    subtitle: Text('${entry.current} A, ${entry.voltage} V'),
+                    subtitle: Text(
+                      '${entry.current} A, ${entry.voltage} V',
+                    ),
                     leading:
                         Icon(Icons.power, color: _logColor(entry), size: 30),
                     minLeadingWidth: 10,

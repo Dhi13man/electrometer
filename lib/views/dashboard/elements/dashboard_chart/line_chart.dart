@@ -95,13 +95,13 @@ class _LineChartImplementationState extends State<LineChartImplementation> {
       theme.colorScheme.primary,
       theme.colorScheme.secondary,
     ];
-    return Stack(
+    return Column(
       children: <Widget>[
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+          margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 25),
           padding: const EdgeInsets.symmetric(vertical: 25),
           child: AspectRatio(
-            aspectRatio: 2,
+            aspectRatio: 1.25,
             child: LineChart(
               LineChartData(
                 gridData: FlGridData(
@@ -189,18 +189,23 @@ class _LineChartImplementationState extends State<LineChartImplementation> {
             ),
           ),
         ),
-        SizedBox(
-          height: 30,
-          child: TextButton(
-            onPressed: () => setState(
-              () => _showingDataIndex = (_showingDataIndex + 1) %
-                  widget._supportedChartDataTypeNames.length,
-            ),
+        ElevatedButton(
+          onPressed: () => setState(
+            () => _showingDataIndex = (_showingDataIndex + 1) %
+                widget._supportedChartDataTypeNames.length,
+          ),
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all(theme.colorScheme.primaryContainer),
+          ),
+          child: Container(
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width,
             child: Text(
-              _showingData,
+              _showingData.toUpperCase(),
               style: TextStyle(
                 color: theme.colorScheme.secondary,
-                fontSize: 10,
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -22,18 +22,18 @@ class DashboardStatistics extends StatelessWidget {
             children: <Widget>[
               DataRRectCard(
                 title: '${sensorData.aggregatePower.toStringAsFixed(6)} KWH',
-                subtitle: 'Power',
+                subtitle: 'Total Power Consumed',
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   DataRectangle(
-                    title: '${sensorData.latestCurrent.toStringAsFixed(3)} A',
-                    subtitle: 'Current',
+                    title: '${sensorData.latestCurrent.toStringAsFixed(1)} A',
+                    subtitle: 'Last Current',
                   ),
                   DataRectangle(
                     title: '${sensorData.latestVoltage.toStringAsFixed(1)} V',
-                    subtitle: 'Voltage',
+                    subtitle: 'Last Voltage',
                   ),
                 ],
               ),
