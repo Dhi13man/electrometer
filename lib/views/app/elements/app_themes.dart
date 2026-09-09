@@ -23,7 +23,6 @@ class AppThemes {
             ),
           ),
         ),
-        backgroundColor: primaryDarkerColor,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: primaryThemeColor.withOpacity(0.75),
           elevation: 1,
@@ -52,6 +51,7 @@ class AppThemes {
           ),
         ),
         colorScheme: const ColorScheme.dark(
+          background: primaryDarkerColor,
           shadow: primaryThemeColorLight,
           outline: Color.fromARGB(255, 229, 234, 174),
           secondary: Color(0xFFE3DDDD),

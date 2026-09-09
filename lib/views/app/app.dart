@@ -59,7 +59,7 @@ class _AppState extends State<App> {
 
     return kIsWeb
         ? Container(
-            color: _theme.backgroundColor,
+            color: _theme.colorScheme.background,
             child: Center(
               child: AspectRatio(aspectRatio: 9 / 14, child: baseApp),
             ),
